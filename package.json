@@ -32,7 +32,6 @@
 		"timeout",
 		"random",
 		"event",
-		"delay",
 		"async",
 		"await",
 		"delay",

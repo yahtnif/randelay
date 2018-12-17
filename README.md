@@ -39,11 +39,11 @@ const randelay = require('randelay');
 
 ### randelay(time, [endTime], [options])
 
-Create a promise which resolves after the specified `time` or range in (`time`, `endTime`).
+Create a promise which resolves after the specified `time` or the random time range in (`time`, `endTime`).
 
 ### randelay.reject(time, [endTime], [options])
 
-Create a promise which rejects after the specified `time` or range in (`time`, `endTime`).
+Create a promise which rejects after the specified `time` or the random time range in (`time`, `endTime`).
 
 #### time
 

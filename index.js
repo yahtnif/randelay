@@ -1,64 +1,104 @@
 'use strict';
 
+const ParkMiller = require('park-miller');
+const ms = require('ms');
+
+const MAX_INT32 = 2147483647;
+
+const seed = () => Math.floor(Math.random() * MAX_INT32);
+
+const random = new ParkMiller(seed());
+
+const formatTime = m => (typeof m === 'string' ? ms(m) : m);
+
+const formatParam = (min, max, option) => {
+  let time = formatTime(min);
+
+  if (max) {
+    if (typeof max === 'object') {
+      option = max;
+    } else {
+      time = random.integerInRange(time, formatTime(max));
+    }
+  }
+
+  return [time, option];
+};
+
 const createAbortError = () => {
-	const error = new Error('Delay aborted');
-	error.name = 'AbortError';
-	return error;
+  const error = new Error('Randelay aborted');
+  error.name = 'AbortError';
+  return error;
 };
 
-const createDelay = ({clearTimeout: clear = clearTimeout, setTimeout: set = setTimeout, willResolve}) => (ms, {value, signal} = {}) => {
-	if (signal && signal.aborted) {
-		return Promise.reject(createAbortError());
-	}
+const createRandelay = ({
+  clearTimeout: clear = clearTimeout,
+  setTimeout: set = setTimeout,
+  willResolve
+}) => (min, max, option = {}) => {
+  const [time, opt] = formatParam(min, max, option);
+  const { value, signal } = opt;
 
-	let timeoutId;
-	let settle;
-	let rejectFn;
+  if (signal && signal.aborted) {
+    return Promise.reject(createAbortError());
+  }
 
-	const signalListener = () => {
-		clear(timeoutId);
-		rejectFn(createAbortError());
-	};
+  let timeoutId;
+  let settle;
+  let rejectFn;
 
-	const cleanup = () => {
-		if (signal) {
-			signal.removeEventListener('abort', signalListener);
-		}
-	};
+  const signalListener = () => {
+    clear(timeoutId);
+    rejectFn(createAbortError());
+  };
 
-	const delayPromise = new Promise((resolve, reject) => {
-		settle = () => {
-			cleanup();
-			if (willResolve) {
-				resolve(value);
-			} else {
-				reject(value);
-			}
-		};
-		rejectFn = reject;
-		timeoutId = set(settle, ms);
-	});
+  const cleanup = () => {
+    if (signal) {
+      signal.removeEventListener('abort', signalListener);
+    }
+  };
 
-	if (signal) {
-		signal.addEventListener('abort', signalListener, {once: true});
-	}
+  const randelayPromise = new Promise((resolve, reject) => {
+    settle = () => {
+      cleanup();
+      if (willResolve) {
+        resolve(value);
+      } else {
+        reject(value);
+      }
+    };
+    rejectFn = reject;
+    timeoutId = set(settle, time);
+  });
 
-	delayPromise.clear = () => {
-		clear(timeoutId);
-		timeoutId = null;
-		cleanup();
-		settle();
-	};
+  if (signal) {
+    signal.addEventListener('abort', signalListener, { once: true });
+  }
 
-	return delayPromise;
+  randelayPromise.clear = () => {
+    clear(timeoutId);
+    timeoutId = null;
+    cleanup();
+    settle();
+  };
+
+  return randelayPromise;
 };
 
-const delay = createDelay({willResolve: true});
-delay.reject = createDelay({willResolve: false});
-delay.createWithTimers = ({clearTimeout, setTimeout}) => {
-	const delay = createDelay({clearTimeout, setTimeout, willResolve: true});
-	delay.reject = createDelay({clearTimeout, setTimeout, willResolve: false});
-	return delay;
+const randelay = createRandelay({ willResolve: true });
+randelay.reject = createRandelay({ willResolve: false });
+randelay.createWithTimers = ({ clearTimeout, setTimeout }) => {
+  const randelay = createRandelay({
+    clearTimeout,
+    setTimeout,
+    willResolve: true
+  });
+  randelay.reject = createRandelay({
+    clearTimeout,
+    setTimeout,
+    willResolve: false
+  });
+  return randelay;
 };
-module.exports = delay;
-module.exports.default = delay;
+module.exports = randelay;
+module.exports.default = randelay;

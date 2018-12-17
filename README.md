@@ -1,4 +1,4 @@
-# randelay [![Build Status](https://travis-ci.org/yahtnif/randelay.svg?branch=master)](https://travis-ci.org/randelay/randelay)
+# randelay [![Build Status](https://travis-ci.org/yahtnif/randelay.svg?branch=master)](https://travis-ci.org/yahtnif/randelay)
 
 > Random + delay + [ms](https://github.com/zeit/ms)
 

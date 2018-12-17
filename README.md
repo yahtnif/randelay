@@ -1,8 +1,6 @@
 # randelay [![Build Status](https://travis-ci.org/yahtnif/randelay.svg?branch=master)](https://travis-ci.org/yahtnif/randelay)
 
-> Random + delay + [ms](https://github.com/zeit/ms)
-
-Fork: [delay](https://github.com/sindresorhus/delay)
+> Random + [delay](https://github.com/sindresorhus/delay) + [ms](https://github.com/zeit/ms)
 
 
 ## Install
@@ -82,6 +80,7 @@ Clears the randelay and settles the promise.
 ### randelay.createWithTimers({clearTimeout, setTimeout})
 
 Creates a new `randelay` instance using the provided functions for clearing and setting timeouts. Useful if you're about to stub timers globally, but you still want to use `randelay` to manage your tests.
+
 
 ## Advanced usage
 
@@ -172,6 +171,7 @@ const customRandelay = randelay.createWithTimers({clearTimeout, setTimeout});
 	//=> '🦄'
 })();
 ```
+
 
 ## License
 

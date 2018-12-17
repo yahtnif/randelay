@@ -1,19 +1,19 @@
 import {expectType} from 'tsd-check';
-import delay from '.';
+import randelay from '.';
 
-expectType<void>(await delay(200));
+expectType<void>(await randelay(200));
 
-expectType<string>(await delay(200, {value: '🦄'}));
-expectType<number>(await delay(200, {value: 0}));
+expectType<string>(await randelay(200, {value: '🦄'}));
+expectType<number>(await randelay(200, {value: 0}));
 
-expectType<never>(await delay.reject(200, {value: '🦄'}));
-expectType<never>(await delay.reject(200, {value: 0}));
+expectType<never>(await randelay.reject(200, {value: '🦄'}));
+expectType<never>(await randelay.reject(200, {value: 0}));
 
-const customDelay = delay.createWithTimers({clearTimeout, setTimeout})
-expectType<void>(await customDelay(200));
+const customRandelay = randelay.createWithTimers({clearTimeout, setTimeout})
+expectType<void>(await customRandelay(200));
 
-expectType<string>(await customDelay(200, {value: '🦄'}));
-expectType<number>(await customDelay(200, {value: 0}));
+expectType<string>(await customRandelay(200, {value: '🦄'}));
+expectType<number>(await customRandelay(200, {value: 0}));
 
-expectType<never>(await customDelay.reject(200, {value: '🦄'}));
-expectType<never>(await customDelay.reject(200, {value: 0}));
+expectType<never>(await customRandelay.reject(200, {value: '🦄'}));
+expectType<never>(await customRandelay.reject(200, {value: 0}));

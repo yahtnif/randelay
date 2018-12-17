@@ -35,8 +35,8 @@ const createRandelay = ({
   clearTimeout: clear = clearTimeout,
   setTimeout: set = setTimeout,
   willResolve
-}) => (min, max, option = {}) => {
-  const [time, opt] = formatParam(min, max, option);
+}) => (time, endTime, option = {}) => {
+  const [delayTime, opt] = formatParam(time, endTime, option);
   const { value, signal } = opt;
 
   if (signal && signal.aborted) {
@@ -68,7 +68,7 @@ const createRandelay = ({
       }
     };
     rejectFn = reject;
-    timeoutId = set(settle, time);
+    timeoutId = set(settle, delayTime);
   });
 
   if (signal) {

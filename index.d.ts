@@ -24,6 +24,10 @@ export interface Options {
   signal?: AbortSignal
 }
 
+declare type Time = number | string
+
+declare type StartTime = Time | [Time]
+
 type Randelay = {
   /**
    * Create a promise which resolves after the specified `time`.
@@ -32,7 +36,7 @@ type Randelay = {
    * @param endTime - Random time range in (`time`, `endTime`) to delay the promise.
    * @returns A promise which rejects after the specified `time` or the random time range in (`time`, `endTime`).
    */
-  (time: number | string, endTime?: number | string | Options, options?: Options): ClearablePromise<void>;
+  (time: StartTime, endTime?: Time | Options, options?: Options): ClearablePromise<void>;
 
   /**
    * Create a promise which resolves after the specified `time`.
@@ -41,7 +45,7 @@ type Randelay = {
    * @param endTime - Random time range in (`time`, `endTime`) to delay the promise.
    * @returns A promise which rejects after the specified `time` or the random time range in (`time`, `endTime`).
    */
-  <T>(time: number | string, endTime?: number | string | Options & {
+  <T>(time: StartTime, endTime?: Time | Options & {
     /** Value to resolve in the returned promise. */
     value: T
   }, options?: Options & {
@@ -57,7 +61,7 @@ type Randelay = {
    * @returns A promise which rejects after the specified `time` or the random time range in (`time`, `endTime`).
    */
   // TODO: Allow providing value type after https://github.com/Microsoft/TypeScript/issues/5413 will be resolved.
-  reject(time: number | string, endTime?: number | string | Options & {
+  reject(StartTime, endTime?: Time | Options & {
     /** Value to reject in the returned promise. */
     value?: any
   }, options?: Options & {

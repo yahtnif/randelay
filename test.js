@@ -26,6 +26,12 @@ test('able to resolve various time formats', async t => {
   t.true(inRange(end(), 30, ms('.5s') + 20), 'is delayed');
 });
 
+test('allow time to be array', async t => {
+  const end = timeSpan();
+  await m(['50', '.5s']);
+  t.true(inRange(end(), 30, ms('.5s') + 20), 'is delayed');
+});
+
 test('returns a rejected promise', async t => {
   const end = timeSpan();
   await t.throwsAsync(m.reject(50, { value: new Error('foo') }), 'foo');

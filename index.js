@@ -12,14 +12,25 @@ const random = new ParkMiller(seed());
 const formatTime = m => (typeof m === 'string' ? ms(m) : m);
 
 const formatParam = (min, max, option) => {
-  let time = formatTime(min);
+  let time, endTime;
 
-  if (max) {
-    if (typeof max === 'object') {
-      option = max;
-    } else {
-      time = random.integerInRange(time, formatTime(max));
-    }
+  if (typeof max === 'object') {
+    option = max;
+  } else if (max) {
+    endTime = max;
+  }
+
+  if (Array.isArray(min)) {
+    endTime = min[1];
+    time = min[0];
+  } else {
+    time = min;
+  }
+
+  time = formatTime(time);
+
+  if (endTime) {
+    time = random.integerInRange(time, formatTime(endTime));
   }
 
   return [time, option];

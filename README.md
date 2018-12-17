@@ -30,7 +30,9 @@ const randelay = require('randelay');
 
 	await randelay(100, '1s');
 
-	await randelay('5s', '1m');
+  await randelay('5s', '1m');
+
+  await randelay(['5s', '1m']);
 })();
 ```
 
@@ -47,7 +49,7 @@ Create a promise which rejects after the specified `time` or the random time ran
 
 #### time
 
-Type: `number` | `string`
+Type: `number` | `string` | `Array`
 
 Time to delay the promise. See [ms](https://github.com/zeit/ms).
 

@@ -16,19 +16,19 @@ $ npm install randelay
 const randelay = require('randelay');
 
 (async () => {
-	bar();
+  bar();
 
-	await randelay(100);
+  await randelay(100);
 
-	// Executed 100 milliseconds later
-	baz();
+  // Executed 100 milliseconds later
+  baz();
 
-	// Or
-	await randelay('1s');
+  // Or
+  await randelay('1s');
 
-	await randelay(100, 500);
+  await randelay(100, 500);
 
-	await randelay(100, '1s');
+  await randelay(100, '1s');
 
   await randelay('5s', '1m');
 
@@ -92,11 +92,11 @@ Passing a value:
 const randelay = require('randelay');
 
 (async() => {
-	const result = await randelay(100, {value: '🦄'});
+  const result = await randelay(100, {value: '🦄'});
 
-	// Executed after 100 milliseconds
-	console.log(result);
-	//=> '🦄'
+  // Executed after 100 milliseconds
+  console.log(result);
+  //=> '🦄'
 })();
 ```
 
@@ -106,15 +106,15 @@ Using `randelay.reject()`, which optionally accepts a value and rejects it `ms` 
 const randelay = require('randelay');
 
 (async () => {
-	try {
-		await randelay.reject(100, {value: new Error('🦄')});
+  try {
+    await randelay.reject(100, {value: new Error('🦄')});
 
-		console.log('This is never executed');
-	} catch (error) {
-		// 100 milliseconds later
-		console.log(error);
-		//=> [Error: 🦄]
-	}
+    console.log('This is never executed');
+  } catch (error) {
+    // 100 milliseconds later
+    console.log(error);
+    //=> [Error: 🦄]
+  }
 })();
 ```
 
@@ -124,15 +124,15 @@ You can settle the randelay early by calling `.clear()`:
 const randelay = require('randelay');
 
 (async () => {
-	const randelayedPromise = randelay(1000, {value: 'Done'});
+  const randelayedPromise = randelay(1000, {value: 'Done'});
 
-	setTimeout(() => {
-		randelayedPromise.clear();
-	}, 500);
+  setTimeout(() => {
+    randelayedPromise.clear();
+  }, 500);
 
-	// 500 milliseconds later
-	console.log(await randelayedPromise);
-	//=> 'Done'
+  // 500 milliseconds later
+  console.log(await randelayedPromise);
+  //=> 'Done'
 })();
 ```
 
@@ -142,19 +142,19 @@ You can abort the randelay with an AbortSignal:
 const randelay = require('randelay');
 
 (async () => {
-	const abortController = new AbortController();
+  const abortController = new AbortController();
 
-	setTimeout(() => {
-		abortController.abort();
-	}, 500);
+  setTimeout(() => {
+    abortController.abort();
+  }, 500);
 
-	try {
-		await randelay(1000, {signal: abortController.signal});
-	} catch (error) {
-		// 500 milliseconds later
-		console.log(error.name)
-		//=> 'AbortError'
-	}
+  try {
+    await randelay(1000, {signal: abortController.signal});
+  } catch (error) {
+    // 500 milliseconds later
+    console.log(error.name)
+    //=> 'AbortError'
+  }
 })();
 ```
 
@@ -166,11 +166,11 @@ const randelay = require('randelay');
 const customRandelay = randelay.createWithTimers({clearTimeout, setTimeout});
 
 (async() => {
-	const result = await customRandelay(100, {value: '🦄'});
+  const result = await customRandelay(100, {value: '🦄'});
 
-	// Executed after 100 milliseconds
-	console.log(result);
-	//=> '🦄'
+  // Executed after 100 milliseconds
+  console.log(result);
+  //=> '🦄'
 })();
 ```
 

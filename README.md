@@ -1,4 +1,4 @@
-# randelay [![npm](https://badgen.net/npm/v/randelay)](https://www.npmjs.com/package/randelay) [![Build Status](https://travis-ci.org/yahtnif/delay.svg?branch=master)](https://travis-ci.org/yahtnif/delay)
+# randelay [![npm](https://badgen.net/npm/v/randelay)](https://www.npmjs.com/package/randelay) [![Build Status](https://travis-ci.org/yahtnif/randelay.svg?branch=master)](https://travis-ci.org/yahtnif/randelay)
 
 > Random + [delay](https://github.com/sindresorhus/delay) + [ms](https://github.com/zeit/ms)
 

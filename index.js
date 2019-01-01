@@ -1,13 +1,9 @@
 'use strict';
 
-const ParkMiller = require('park-miller');
+const { Random } = require('suni');
 const ms = require('ms');
 
-const MAX_INT32 = 2147483647;
-
-const seed = () => Math.floor(Math.random() * MAX_INT32);
-
-const random = new ParkMiller(seed());
+const random = new Random();
 
 const formatTime = m => (typeof m === 'string' ? ms(m) : m);
 
@@ -30,7 +26,7 @@ const formatParam = (min, max, option) => {
   time = formatTime(time);
 
   if (endTime) {
-    time = random.integerInRange(time, formatTime(endTime));
+    time = random.int(time, formatTime(endTime));
   }
 
   return [time, option];

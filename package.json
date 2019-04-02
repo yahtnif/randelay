@@ -2,7 +2,7 @@
   "name": "randelay",
   "version": "5.2.0",
   "description": "Random + delay + ms",
-  "license": "MIT",
+  "license": "996ICU",
   "repository": "yahtnif/randelay",
   "author": "Yahtnif <yahtnif@gmail.com>",
   "engines": {

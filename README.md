@@ -1,4 +1,8 @@
-# randelay [![npm](https://badgen.net/npm/v/randelay)](https://www.npmjs.com/package/randelay) [![Build Status](https://travis-ci.org/yahtnif/randelay.svg?branch=master)](https://travis-ci.org/yahtnif/randelay)
+# randelay
+
+[![996ICU Licence](<https://img.shields.io/badge/license-NPL%20(The%20996%20Prohibited%20License)-blue.svg>)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![npm](https://badgen.net/npm/v/randelay)](https://www.npmjs.com/package/randelay)
+[![Build Status](https://travis-ci.org/yahtnif/randelay.svg?branch=master)](https://travis-ci.org/yahtnif/randelay)
 
 > Random + [delay](https://github.com/sindresorhus/delay) + [ms](https://github.com/zeit/ms)
 
@@ -11,27 +15,27 @@ $ npm install randelay
 ## Usage
 
 ```js
-const delay = require('randelay');
+const delay = require('randelay')
 
-(async () => {
-  bar();
+;(async () => {
+  bar()
 
-  await delay(100);
+  await delay(100)
 
   // Executed 100 milliseconds later
-  baz();
+  baz()
 
   // Or
-  await delay('1s');
+  await delay('1s')
 
-  await delay(100, 500);
+  await delay(100, 500)
 
-  await delay(100, '1s');
+  await delay(100, '1s')
 
-  await delay('5s', '1m');
+  await delay('5s', '1m')
 
-  await delay(['5s', '1m']);
-})();
+  await delay(['5s', '1m'])
+})()
 ```
 
 ## API
@@ -85,91 +89,91 @@ Creates a new `delay` instance using the provided functions for clearing and set
 Passing a value:
 
 ```js
-const delay = require('randelay');
+const delay = require('randelay')
 
-(async () => {
-  const result = await delay(100, { value: '🦄' });
+;(async () => {
+  const result = await delay(100, { value: '🦄' })
 
   // Executed after 100 milliseconds
-  console.log(result);
+  console.log(result)
   //=> '🦄'
-})();
+})()
 ```
 
 Using `delay.reject()`, which optionally accepts a value and rejects it `ms` later:
 
 ```js
-const delay = require('randelay');
+const delay = require('randelay')
 
-(async () => {
+;(async () => {
   try {
-    await delay.reject(100, { value: new Error('🦄') });
+    await delay.reject(100, { value: new Error('🦄') })
 
-    console.log('This is never executed');
+    console.log('This is never executed')
   } catch (error) {
     // 100 milliseconds later
-    console.log(error);
+    console.log(error)
     //=> [Error: 🦄]
   }
-})();
+})()
 ```
 
 You can settle the delay early by calling `.clear()`:
 
 ```js
-const delay = require('randelay');
+const delay = require('randelay')
 
-(async () => {
-  const delayedPromise = delay(1000, { value: 'Done' });
+;(async () => {
+  const delayedPromise = delay(1000, { value: 'Done' })
 
   setTimeout(() => {
-    delayedPromise.clear();
-  }, 500);
+    delayedPromise.clear()
+  }, 500)
 
   // 500 milliseconds later
-  console.log(await delayedPromise);
+  console.log(await delayedPromise)
   //=> 'Done'
-})();
+})()
 ```
 
 You can abort the delay with an AbortSignal:
 
 ```js
-const delay = require('randelay');
+const delay = require('randelay')
 
-(async () => {
-  const abortController = new AbortController();
+;(async () => {
+  const abortController = new AbortController()
 
   setTimeout(() => {
-    abortController.abort();
-  }, 500);
+    abortController.abort()
+  }, 500)
 
   try {
-    await delay(1000, { signal: abortController.signal });
+    await delay(1000, { signal: abortController.signal })
   } catch (error) {
     // 500 milliseconds later
-    console.log(error.name);
+    console.log(error.name)
     //=> 'AbortError'
   }
-})();
+})()
 ```
 
 Create a new instance that is unaffected by libraries such as [lolex](https://github.com/sinonjs/lolex/):
 
 ```js
-const delay = require('randelay');
+const delay = require('randelay')
 
-const customDelay = delay.createWithTimers({ clearTimeout, setTimeout });
+const customDelay = delay.createWithTimers({ clearTimeout, setTimeout })
 
-(async () => {
-  const result = await customDelay(100, { value: '🦄' });
+;(async () => {
+  const result = await customDelay(100, { value: '🦄' })
 
   // Executed after 100 milliseconds
-  console.log(result);
+  console.log(result)
   //=> '🦄'
-})();
+})()
 ```
 
 ## License
 
-[MIT](./LICENSE)
+[996ICU](./LICENSE)

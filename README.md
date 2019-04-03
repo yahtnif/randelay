@@ -1,6 +1,6 @@
 <div align="center">
 	<div>
-		<img width="300" height="196" src="https://github.com/yahtnif/static/raw/master/logo/randelay.svg?sanitize=true" alt="randelay">
+		<img width="300" src="https://github.com/yahtnif/static/raw/master/logo/randelay.svg?sanitize=true" alt="randelay">
 	</div>
 </div>
 
@@ -180,4 +180,4 @@ const customDelay = delay.createWithTimers({ clearTimeout, setTimeout })
 
 ## License
 
-[996ICU](./LICENSE)
+[Anti 996](./LICENSE)

@@ -1,8 +1,12 @@
-# randelay
+<div align="center">
+	<div>
+		<img width="300" height="196" src="https://github.com/yahtnif/static/raw/master/logo/randelay.svg?sanitize=true" alt="randelay">
+	</div>
+</div>
 
-[![996ICU Licence](<https://img.shields.io/badge/license-NPL%20(The%20996%20Prohibited%20License)-blue.svg>)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![npm](https://badgen.net/npm/v/randelay)](https://www.npmjs.com/package/randelay)
 [![Build Status](https://travis-ci.org/yahtnif/randelay.svg?branch=master)](https://travis-ci.org/yahtnif/randelay)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 > Random + [delay](https://github.com/sindresorhus/delay) + [ms](https://github.com/zeit/ms)
 

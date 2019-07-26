@@ -1,100 +1,109 @@
-export interface ClearablePromise<T> extends Promise<T> {
+declare namespace delay {
+  interface ClearablePromise<T> extends Promise<T> {
+    /**
+    Clears the delay and settles the promise.
+    */
+    clear(): void;
+  }
+
   /**
-   * Clears the delay and settles the promise.
-   */
-  clear(): void
+  Minimal subset of `AbortSignal` that delay will use if passed.
+  This avoids a dependency on dom.d.ts.
+  The dom.d.ts `AbortSignal` is compatible with this one.
+  */
+  interface AbortSignal {
+    readonly aborted: boolean;
+    addEventListener(
+      type: 'abort',
+      listener: () => void,
+      options?: { once?: boolean }
+    ): void;
+    removeEventListener(type: 'abort', listener: () => void): void;
+  }
+
+  interface Options {
+    /**
+    An optional AbortSignal to abort the delay.
+    If aborted, the Promise will be rejected with an AbortError.
+    */
+    signal?: AbortSignal;
+  }
+
+  type Time = number | string;
+
+  type StartTime = Time | [Time];
 }
 
-/**
- * Minimal subset of `AbortSignal` that delay will use if passed.
- * This avoids a dependency on dom.d.ts.
- * The dom.d.ts `AbortSignal` is compatible with this one.
- */
-interface AbortSignal {
-  readonly aborted: boolean
-  addEventListener(
-    type: 'abort',
-    listener: () => void,
-    options?: { once?: boolean }
-  ): void
-  removeEventListener(type: 'abort', listener: () => void): void
-}
-
-export interface Options {
+type Delay = {
   /**
-   * An optional AbortSignal to abort the delay.
-   * If aborted, the Promise will be rejected with an AbortError.
-   */
-  signal?: AbortSignal
-}
+  Create a promise which resolves after the specified `milliseconds`.
 
-declare type Time = number | string
-
-declare type StartTime = Time | [Time]
-
-type Randelay = {
-  /**
-   * Create a promise which resolves after the specified `time`.
-   *
-   * @param time - Time to delay the promise.
-   * @param endTime - Random time range in (`time`, `endTime`) to delay the promise.
-   * @returns A promise which rejects after the specified `time` or the random time range in (`time`, `endTime`).
-   */
+  @param time - Time to delay the promise.
+  @param endTime - Random time range in (`time`, `endTime`) to delay the promise.
+  @returns A promise which resolves after the specified `time` or the random time range in (`time`, `endTime`).
+  */
   (
-    time: StartTime,
-    endTime?: Time | Options,
-    options?: Options
-  ): ClearablePromise<void>
+    time: delay.StartTime,
+    endTime?: delay.Time | delay.Options,
+    options?: delay.Options
+  ): delay.ClearablePromise<void>;
 
   /**
-   * Create a promise which resolves after the specified `time`.
-   *
-   * @param time - Time to delay the promise.
-   * @param endTime - Random time range in (`time`, `endTime`) to delay the promise.
-   * @returns A promise which rejects after the specified `time` or the random time range in (`time`, `endTime`).
-   */
+  Create a promise which resolves after the specified `milliseconds`.
+
+  @param time - Time to delay the promise.
+  @param endTime - Random time range in (`time`, `endTime`) to delay the promise.
+  @returns A promise which resolves after the specified `time` or the random time range in (`time`, `endTime`).
+  */
   <T>(
-    time: StartTime,
+    time: delay.StartTime,
     endTime?:
-      | Time
-      | Options & {
+      | delay.Time
+      | delay.Options & {
           /** Value to resolve in the returned promise. */
-          value: T
+          value: T;
         },
-    options?: Options & {
-      /** Value to resolve in the returned promise. */
-      value: T
+    options?: delay.Options & {
+      /**
+      Value to resolve in the returned promise.
+      */
+      value: T;
     }
-  ): ClearablePromise<T>
+  ): delay.ClearablePromise<T>;
 
   /**
-   * Create a promise which resolves after the specified `time`.
-   *
-   * @param time - Time to delay the promise.
-   * @param endTime - Random time range in (`time`, `endTime`) to delay the promise.
-   * @returns A promise which rejects after the specified `time` or the random time range in (`time`, `endTime`).
-   */
+  Create a promise which rejects after the specified `milliseconds`.
+
+  @param time - Time to delay the promise.
+  @param endTime - Random time range in (`time`, `endTime`) to delay the
+  @returns A promise which rejects after the specified `time` or the random time range in (`time`, `endTime`).
+  */
   // TODO: Allow providing value type after https://github.com/Microsoft/TypeScript/issues/5413 will be resolved.
   reject(
-    StartTime: StartTime,
+    StartTime: delay.StartTime,
     endTime?:
-      | Time
-      | Options & {
+      | delay.Time
+      | delay.Options & {
           /** Value to reject in the returned promise. */
-          value?: any
+          value?: unknown;
         },
-    options?: Options & {
-      /** Value to reject in the returned promise. */
-      value?: any
+    options?: delay.Options & {
+      /**
+      Value to reject in the returned promise.
+      */
+      value?: unknown;
     }
-  ): ClearablePromise<never>
-}
+  ): delay.ClearablePromise<never>;
+};
 
-declare const randelay: Randelay & {
+declare const delay: Delay & {
   createWithTimers(timers: {
-    clearTimeout: typeof clearTimeout
-    setTimeout: typeof setTimeout
-  }): Randelay
-}
+    clearTimeout: typeof clearTimeout;
+    setTimeout: typeof setTimeout;
+  }): Delay;
 
-export default randelay
+  // TODO: Remove this for the next major release
+  default: typeof delay;
+};
+
+export = delay;

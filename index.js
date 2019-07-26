@@ -39,8 +39,8 @@ const createAbortError = () => {
 };
 
 const createRandelay = ({
-  clearTimeout: clear = clearTimeout,
-  setTimeout: set = setTimeout,
+  clearTimeout: defaultClear,
+  setTimeout: set,
   willResolve
 }) => (time, endTime, option = {}) => {
   const [delayTime, opt] = formatParam(time, endTime, option);
@@ -53,6 +53,7 @@ const createRandelay = ({
   let timeoutId;
   let settle;
   let rejectFn;
+  const clear = defaultClear || clearTimeout;
 
   const signalListener = () => {
     clear(timeoutId);
@@ -75,7 +76,7 @@ const createRandelay = ({
       }
     };
     rejectFn = reject;
-    timeoutId = set(settle, delayTime);
+    timeoutId = (set || setTimeout)(settle, delayTime);
   });
 
   if (signal) {
@@ -108,4 +109,5 @@ randelay.createWithTimers = ({ clearTimeout, setTimeout }) => {
   return randelay;
 };
 module.exports = randelay;
+// TODO: Remove this for the next major release
 module.exports.default = randelay;

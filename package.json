@@ -13,8 +13,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write --single-quote",
-      "git add"
+      "prettier --write --single-quote"
     ]
   },
   "husky": {
@@ -42,17 +41,18 @@
   ],
   "devDependencies": {
     "abort-controller": "^3.0.0",
-    "ava": "1.4.1",
+    "ava": "^1.4.1",
     "currently-unhandled": "^0.4.1",
-    "husky": "^1.3.1",
-    "in-range": "^1.0.0",
-    "lint-staged": "^8.1.0",
-    "prettier": "^1.15.3",
-    "time-span": "^3.0.0",
-    "tsd": "^0.7.1"
+    "delay": "^4.3.0",
+    "husky": "^4.2.5",
+    "in-range": "^2.0.0",
+    "lint-staged": "^10.1.4",
+    "prettier": "^2.0.4",
+    "time-span": "^4.0.0",
+    "tsd": "^0.11.0"
   },
   "dependencies": {
-    "ms": "^2.1.1",
-    "suni": "^0.2.0"
+    "ms": "^2.1.2",
+    "suni": "^1.1.0"
   }
 }

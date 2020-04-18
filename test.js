@@ -107,7 +107,7 @@ test('resolution can be aborted with an AbortSignal', async (t) => {
   await t.throwsAsync(m(1000, { signal: abortController.signal }), {
     name: 'AbortError',
   });
-  t.true(end() < 40);
+  t.true(end() < 30);
 });
 
 test('resolution can be aborted with an AbortSignal if a value is passed', async (t) => {

@@ -5,7 +5,7 @@ const ms = require('ms');
 
 const random = new Random();
 
-const formatTime = m => (typeof m === 'string' ? ms(m) : m);
+const formatTime = (m) => (typeof m === 'string' ? ms(m) : m);
 
 const formatParam = (min, max, option) => {
   let time, endTime;
@@ -41,7 +41,7 @@ const createAbortError = () => {
 const createRandelay = ({
   clearTimeout: defaultClear,
   setTimeout: set,
-  willResolve
+  willResolve,
 }) => (time, endTime, option = {}) => {
   const [delayTime, opt] = formatParam(time, endTime, option);
   const { value, signal } = opt;
@@ -86,7 +86,6 @@ const createRandelay = ({
   randelayPromise.clear = () => {
     clear(timeoutId);
     timeoutId = null;
-    cleanup();
     settle();
   };
 
@@ -99,12 +98,12 @@ randelay.createWithTimers = ({ clearTimeout, setTimeout }) => {
   const randelay = createRandelay({
     clearTimeout,
     setTimeout,
-    willResolve: true
+    willResolve: true,
   });
   randelay.reject = createRandelay({
     clearTimeout,
     setTimeout,
-    willResolve: false
+    willResolve: false,
   });
   return randelay;
 };

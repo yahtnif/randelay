@@ -1,15 +1,12 @@
 {
   "name": "randelay",
-  "version": "5.3.2",
+  "version": "5.4.0",
   "description": "Random + delay + ms",
   "license": "Anti 996",
   "repository": "yahtnif/randelay",
   "author": "Yahtnif <yahtnif@gmail.com>",
   "engines": {
     "node": ">=8"
-  },
-  "scripts": {
-    "test": "lint-staged && ava && tsd"
   },
   "lint-staged": {
     "*.js": [
@@ -18,7 +15,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && ava"
+      "pre-commit": "lint-staged"
     }
   },
   "files": [
@@ -39,16 +36,9 @@
     "ms"
   ],
   "devDependencies": {
-    "abort-controller": "^3.0.0",
-    "ava": "^1.4.1",
-    "currently-unhandled": "^0.4.1",
-    "delay": "^4.3.0",
     "husky": "^4.2.5",
-    "in-range": "^2.0.0",
     "lint-staged": "^10.1.4",
-    "prettier": "^2.0.4",
-    "time-span": "^4.0.0",
-    "tsd": "^0.11.0"
+    "prettier": "^2.0.4"
   },
   "dependencies": {
     "ms": "^2.1.2"

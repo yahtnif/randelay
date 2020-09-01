@@ -22,8 +22,7 @@
     }
   },
   "files": [
-    "index.js",
-    "index.d.ts"
+    "index.js"
   ],
   "keywords": [
     "settimeout",
@@ -52,7 +51,6 @@
     "tsd": "^0.11.0"
   },
   "dependencies": {
-    "ms": "^2.1.2",
-    "suni": "^1.1.0"
+    "ms": "^2.1.2"
   }
 }

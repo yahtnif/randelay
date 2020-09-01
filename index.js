@@ -1,9 +1,9 @@
 'use strict';
 
-const { Random } = require('suni');
 const ms = require('ms');
 
-const random = new Random();
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
 
 const formatTime = (m) => (typeof m === 'string' ? ms(m) : m);
 
@@ -26,7 +26,7 @@ const formatParam = (min, max, option) => {
   time = formatTime(time);
 
   if (endTime) {
-    time = random.int(time, formatTime(endTime));
+    time = randomInt(time, formatTime(endTime));
   }
 
   return [time, option];
